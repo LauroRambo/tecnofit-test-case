@@ -4,7 +4,7 @@ Tanto o banco quanto a aplicação vao ser iniciadas ao rodar o docker-compose
 
 2 - Rodar o seguinte comando para as migrations: docker-compose exec laravel_app php artisan migrate --seed
 
-2 - Após rodar o seguinte comando: docker-compose exec laravel_app php artisan serve --host=0.0.0.0
+3 - Após rodar o seguinte comando: docker-compose exec laravel_app php artisan serve --host=0.0.0.0
 
 3 - Para acessar o container rodar o seguinte comando: docker exec -it laravel_app bash
 
