@@ -24,7 +24,7 @@ class RankingService {
         return $this->generateRanking($records, $movementId);
     }
 
-    private function generateRanking(\Illuminate\Database\Eloquent\Collection $records, $movementId): array {
+    public function generateRanking(\Illuminate\Database\Eloquent\Collection $records, $movementId): array {
         $records = $records->sortByDesc('record_value')->values();  
 
         $ranking = [];

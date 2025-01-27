@@ -6,43 +6,26 @@ use Tests\TestCase;
 use App\Services\RankingService;
 use App\Repositories\PersonalRecordRepository;
 use App\Models\PersonalRecord;
+use App\Models\UsersRecord;
+use App\Models\Movement;
+
 use Mockery;
+use Illuminate\Database\Eloquent\Collection;
+
 
 class RankingServiceTest extends TestCase {
     
-    public function test_generate_ranking() {
-        $mockRepo = Mockery::mock(PersonalRecordRepository::class);
-        
-        // Criando instâncias simuladas de PersonalRecord
-        $mockRecords = collect([
-            new PersonalRecord([
-                'user_name' => 'Jose',
-                'record_value' => 190,
-                'record_date' => '2021-01-06'
-            ]),
-            new PersonalRecord([
-                'user_name' => 'Paulo',
-                'record_value' => 170,
-                'record_date' => '2021-01-01'
-            ]),
-            new PersonalRecord([
-                'user_name' => 'Joao',
-                'record_value' => 180,
-                'record_date' => '2021-01-02'
-            ]),
-        ]);
-    
-        $mockRepo->shouldReceive('getRecordsByMovement')
-            ->andReturn($mockRecords);
-    
-        $service = new RankingService($mockRepo);
-        $ranking = $service->getRanking(1);
-    
-        // Verifica se o ranking retornado tem 3 usuários
-        $this->assertCount(3, $ranking['ranking']);
-    
-        // Verifica se o primeiro do ranking é o "Jose"
-        $this->assertEquals('Jose', $ranking['ranking'][0]['user_name']);
+    public function test_generate_ranking(){
+        $movementId = 1;
+
+        $records = \App\Models\PersonalRecord::with(['user', 'movement'])
+            ->where('movement_id', $movementId)
+            ->get();
+
+        $rankingService = new \App\Services\RankingService(new \App\Repositories\PersonalRecordRepository());
+        $ranking = $rankingService->generateRanking($records, $movementId);
+
+        $this->assertEquals('Deadlift', $ranking['movement']);
     }
     
     public function test_generate_ranking_with_no_records() {

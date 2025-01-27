@@ -1,3 +1,5 @@
+Tanto o banco quanto a aplicação vao ser iniciadas ao rodar o docker-compose
+
 1 - Após clonar o projeto rodar o seguinte comando no terminal: docker-compose up -d
 
 2 - Rodar o seguinte comando para as migrations: docker-compose exec laravel_app php artisan migrate --seed
