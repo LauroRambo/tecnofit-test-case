@@ -31,17 +31,14 @@ class RankingServiceTest extends TestCase {
     public function test_generate_ranking_with_no_records() {
         $mockRepo = Mockery::mock(PersonalRecordRepository::class);
     
-        // Simula um retorno vazio
         $mockRepo->shouldReceive('getRecordsByMovement')
             ->andReturn(collect([]));
     
         $service = new RankingService($mockRepo);
         $ranking = $service->getRanking(1);
     
-        // Verifica se o ranking retornado está vazio
         $this->assertEquals([], $ranking['ranking']);
     
-        // Verifica se o movimento foi tratado corretamente
         $this->assertEquals('Movimento não encontrado', $ranking['movement']);
     }
 }
