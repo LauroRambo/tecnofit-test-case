@@ -10,4 +10,4 @@ Tanto o banco quanto a aplicação vao ser iniciadas ao rodar o docker-compose
 
 4 - Para rodar os testes: php artisan test
 
-
+Obs: inclui na raiz do projeto um arquivo chamado: tecnofit.postman_collection.json, com as rotas para teste
